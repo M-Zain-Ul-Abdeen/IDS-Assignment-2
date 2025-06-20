@@ -1,0 +1,34 @@
+import numpy as np
+import pandas as pd
+import os
+import matplotlib.pyplot as plt
+
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+
+df = pd.read_csv("/kaggle/input/netflix-engagement-report-2023jan-jun/Netflix_Engagement_Report_2023_Jan-Jun_cleaned.csv")
+
+df.shape
+df.columns
+df.dtypes
+df.isnull().sum()
+df.describe()
+
+max_index = df["Hours Viewed"].idxmax()
+df.loc[max_index]
+
+min_index = df["Hours Viewed"].idxmin()
+df.loc[min_index]
+
+df.value_counts()
+
+df.dropna(inplace=True)
+df.rename(columns={"type": "show_type"}, inplace=True)
+df.drop_duplicates(inplace=True)
+
+plt.hist(df["Release Date"], bins=20)
+plt.title("Distribution Of Release Year")
+plt.xlabel("Release Year")
+plt.ylabel("Frequency")
+plt.show()
